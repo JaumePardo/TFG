@@ -76,7 +76,7 @@ contract LotteryService is RNGChainlinkV2, PriceConsumerV3 {
 
     function setWinningTickets(address _lotteryId) public onlyOwner lotteryExists(_lotteryId) {
         Lottery ticket = Lottery(_lotteryId);
-        require(ticket.isLotteryFinished(), "La loteria ya ha terminado");
+        require(ticket.isLotteryFinished(), "La loteria aun no ha terminado");
         uint32 requestId = ticket.getRequestId();
         require(isRequestComplete(requestId),"Los numeros aleatorios aun no se han generado");
         (uint256 randNum1, uint256 randNum2, uint256 randNum3) = randomNumber(requestId);
@@ -116,14 +116,12 @@ contract LotteryService is RNGChainlinkV2, PriceConsumerV3 {
         uint256 _totalShares
     ) public payable lotteryExists(_lotteryId) {
         Lottery ticket = Lottery(_lotteryId);
-        require(ticket.isLotteryFinished(), "La loteria ya ha terminado");
+        require(_totalShares>0, "Debes adquirir mas de una participacion");
+        require(!ticket.isLotteryFinished(), "La loteria ya ha terminado");
         (,,uint256 totalNumbers,uint256 totalSeries,uint256 ticketCost,) = ticket.infoLottery();
         require(checkNumBoleto(_numTicket,_numSerie,_numFraccion,totalNumbers,totalSeries),"El numero,serie o fraccion no son correctos");
         uint256 ticketCostEth = getCostEth(ticketCost);
-        require(
-            msg.value >= ticketCostEth,
-            "Necesitas mas ETH para comprar un ticket"
-        );
+        require(msg.value >= ticketCostEth,"Necesitas mas ETH para comprar un ticket");
         uint256 refund = msg.value - ticketCostEth;
         payable(msg.sender).transfer(refund);
         uint256 tokenId = getTokenId(_lotteryId,_numTicket, _numSerie, _numFraccion);
@@ -138,7 +136,7 @@ contract LotteryService is RNGChainlinkV2, PriceConsumerV3 {
         uint256 _tokenId
     ) public lotteryExists(_lotteryId) {
         Lottery ticket = Lottery(_lotteryId);
-        require(ticket.isLotteryFinished(), "La loteria ya ha terminado");
+        require(!ticket.isLotteryFinished(), "La loteria ya ha terminado");
         Shares share = Shares(ticket.getTicketToShare(_tokenId).shares);
 
         require(share.balanceOf(msg.sender) >= _amount,"No tienes suficientes participaciones de este ticket");
@@ -151,7 +149,7 @@ contract LotteryService is RNGChainlinkV2, PriceConsumerV3 {
         uint256 _tokenId
     ) public payable lotteryExists(_lotteryId) {
         Lottery ticket = Lottery(_lotteryId);
-        require(ticket.isLotteryFinished(), "La loteria ya ha terminado");
+        require(!ticket.isLotteryFinished(), "La loteria ya ha terminado");
         Shares share = Shares(ticket.getTicketToShare(_tokenId).shares);
         (, , , , uint256 ticketCost, ) = Lottery(_lotteryId).infoLottery();
         uint256 amount = share.allowance(_from, msg.sender);
@@ -219,8 +217,7 @@ contract LotteryService is RNGChainlinkV2, PriceConsumerV3 {
         uint256 _numFraccion
     ) public view lotteryExists(_lotteryId) returns (uint256) {
         Lottery ticket = Lottery(_lotteryId);
-        (, , , uint256 totalSeries, , ) = ticket
-            .infoLottery();
+        (, , , uint256 totalSeries, , ) = ticket.infoLottery();
         return (_numTicket * (totalSeries * 10)) + (_numSerie * 10) + _numFraccion;
     }
 

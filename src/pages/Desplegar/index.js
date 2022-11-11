@@ -58,12 +58,12 @@ export default function Deploy() {
 
     }
 
-    useEffect(async () => {
+    useEffect(() => {
         if (isWeb3Enabled && lotteryAddress) {
             setAlert({ message: `La lotería con address ${lotteryAddress} se ha desplegado correctamente. 
             Se procederá a guardarlo dentro del almacén de loterías`, severity: "success" });
             console.log("añadiendo lottery");
-            await addLottery({onError: (error) => {
+            addLottery({onError: (error) => {
                 setAlert({severity: "error", message: error.error.message})
                 }
             })

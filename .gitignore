@@ -44,3 +44,6 @@ package-lock.json
 
 # End of https://www.toptal.com/developers/gitignore/api/react,soliditytruffle
 
+
+# Local Netlify folder
+.netlify

@@ -21,7 +21,8 @@ export default function ObtenerBeneficios() {
         if (isWeb3Enabled) {
             console.log("withdraw");
             withdraw({onError: (error) => {
-                setAlert({severity: "error", message: error.error.message})
+                console.log(error.message);
+                setAlert({severity: "error", message: error?.error?.message})
                 }
             })
         }
