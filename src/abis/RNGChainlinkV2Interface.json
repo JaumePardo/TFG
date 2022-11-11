@@ -1,0 +1,732 @@
+{
+  "contractName": "RNGChainlinkV2Interface",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint32",
+          "name": "requestId",
+          "type": "uint32"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256[]",
+          "name": "randomNumber",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "RandomNumberCompleted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint32",
+          "name": "requestId",
+          "type": "uint32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        }
+      ],
+      "name": "RandomNumberRequested",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "getLastRequestId",
+      "outputs": [
+        {
+          "internalType": "uint32",
+          "name": "requestId",
+          "type": "uint32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getRequestFee",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "feeToken",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "requestFee",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint32",
+          "name": "requestId",
+          "type": "uint32"
+        }
+      ],
+      "name": "isRequestComplete",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "isCompleted",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint32",
+          "name": "requestId",
+          "type": "uint32"
+        }
+      ],
+      "name": "randomNumber",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "randomNum1",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "randomNum2",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "randNum3",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "requestRandomNumber",
+      "outputs": [
+        {
+          "internalType": "uint32",
+          "name": "requestId",
+          "type": "uint32"
+        },
+        {
+          "internalType": "uint32",
+          "name": "lockBlock",
+          "type": "uint32"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getKeyHash",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getSubscriptionId",
+      "outputs": [
+        {
+          "internalType": "uint64",
+          "name": "",
+          "type": "uint64"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getVrfCoordinator",
+      "outputs": [
+        {
+          "internalType": "contract VRFCoordinatorV2Interface",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "keyHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "setKeyhash",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint64",
+          "name": "subscriptionId",
+          "type": "uint64"
+        }
+      ],
+      "name": "setSubscriptionId",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.15+commit.e14f2714\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint32\",\"name\":\"requestId\",\"type\":\"uint32\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"randomNumber\",\"type\":\"uint256[]\"}],\"name\":\"RandomNumberCompleted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint32\",\"name\":\"requestId\",\"type\":\"uint32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RandomNumberRequested\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"getKeyHash\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getLastRequestId\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"requestId\",\"type\":\"uint32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getRequestFee\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"feeToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"requestFee\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getSubscriptionId\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getVrfCoordinator\",\"outputs\":[{\"internalType\":\"contract VRFCoordinatorV2Interface\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"requestId\",\"type\":\"uint32\"}],\"name\":\"isRequestComplete\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"isCompleted\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"requestId\",\"type\":\"uint32\"}],\"name\":\"randomNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"randomNum1\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"randomNum2\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"randNum3\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"requestRandomNumber\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"requestId\",\"type\":\"uint32\"},{\"internalType\":\"uint32\",\"name\":\"lockBlock\",\"type\":\"uint32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"keyHash\",\"type\":\"bytes32\"}],\"name\":\"setKeyhash\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"subscriptionId\",\"type\":\"uint64\"}],\"name\":\"setSubscriptionId\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"getKeyHash()\":{\"returns\":{\"_0\":\"bytes32 Chainlink VRF keyHash\"}},\"getLastRequestId()\":{\"returns\":{\"requestId\":\"The last request id used in the last request\"}},\"getRequestFee()\":{\"returns\":{\"feeToken\":\"The address of the token that is used to pay fees\",\"requestFee\":\"The fee required to be paid to make a request\"}},\"getSubscriptionId()\":{\"returns\":{\"_0\":\"uint64 Chainlink VRF subscription id\"}},\"getVrfCoordinator()\":{\"returns\":{\"_0\":\"address Chainlink VRF coordinator address\"}},\"isRequestComplete(uint32)\":{\"details\":\"For time-delayed requests, this function is used to check/confirm completion\",\"params\":{\"requestId\":\"The ID of the request used to get the results of the RNG service\"},\"returns\":{\"isCompleted\":\"True if the request has completed and a random number is available, false otherwise\"}},\"requestRandomNumber()\":{\"details\":\"Some services will complete the request immediately, others may have a time-delaySome services require payment in the form of a token, such as $LINK for Chainlink VRF\",\"returns\":{\"lockBlock\":\"The block number at which the RNG service will start generating time-delayed randomness. The calling contract should \\\"lock\\\" all activity until the result is available via the `requestId`\",\"requestId\":\"The ID of the request used to get the results of the RNG service\"}},\"setKeyhash(bytes32)\":{\"details\":\"This function is only callable by the owner.\",\"params\":{\"keyHash\":\"Chainlink VRF keyHash\"}},\"setSubscriptionId(uint64)\":{\"details\":\"This function is only callable by the owner.\",\"params\":{\"subscriptionId\":\"Chainlink VRF subscription id\"}}},\"title\":\"RNG Chainlink V2 Interface\",\"version\":1},\"userdoc\":{\"events\":{\"RandomNumberCompleted(uint32,uint256[])\":{\"notice\":\"Emitted when an existing request for a random number has been completed\"},\"RandomNumberRequested(uint32,address)\":{\"notice\":\"Emitted when a new request for a random number has been submitted\"}},\"kind\":\"user\",\"methods\":{\"getKeyHash()\":{\"notice\":\"Get Chainlink VRF keyHash associated with this contract.\"},\"getLastRequestId()\":{\"notice\":\"Gets the last request id used by the RNG service\"},\"getRequestFee()\":{\"notice\":\"Gets the Fee for making a Request against an RNG service\"},\"getSubscriptionId()\":{\"notice\":\"Get Chainlink VRF subscription id associated with this contract.\"},\"getVrfCoordinator()\":{\"notice\":\"Get Chainlink VRF coordinator contract address associated with this contract.\"},\"isRequestComplete(uint32)\":{\"notice\":\"Checks if the request for randomness from the 3rd-party service has completed\"},\"requestRandomNumber()\":{\"notice\":\"Sends a request for a random number to the 3rd-party service\"},\"setKeyhash(bytes32)\":{\"notice\":\"Set Chainlink VRF keyHash.\"},\"setSubscriptionId(uint64)\":{\"notice\":\"Set Chainlink VRF subscription id associated with this contract.\"}},\"notice\":\"Provides an interface for requesting random numbers from Chainlink VRF V2.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/src/contracts/RNGChainlinkV2Interface.sol\":\"RNGChainlinkV2Interface\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol\":{\"keccak256\":\"0xcb29ee50ee2b05441e4deebf8b4756a0feec4f5497e36b6a1ca320f7ce561802\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://87b4f2ac9fe4e83334c0cc7b070989f133647f20c2b2e8f2224e10d37bebc6df\",\"dweb:/ipfs/QmYS2z7xmTArVpxiNM8Czj1qKL56HMw61Lzdjto9m3B5PL\"]},\"project:/src/contracts/RNGChainlinkV2Interface.sol\":{\"keccak256\":\"0xce32da7328ab6b5a071ef70f357fcb314e019a67caee42c80d75a493d7b8ae58\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://ec3241778dbf2864b3d257a010eac581b3ce79f40415e4e2e396e0454f28a9d5\",\"dweb:/ipfs/QmVAfDCxSUWh4h2foQzeJb1A9qrnYiBBw4ieDRf1FmGRo3\"]},\"project:/src/contracts/RNGInterface.sol\":{\"keccak256\":\"0xe37d6ab6c720e61e13df4db51f05908d731f5a68e58bff377e2e458f3ae612a5\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://b152bb8deb8e32f4bc8fff93b901ccac17f5220e7a88e2b8f2b83622e365dcf7\",\"dweb:/ipfs/QmZbo5cJFCqp1pJC6sho2bd2JyAKHCi2mSgfi54S8EcW8E\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: GPL-3.0\n\npragma solidity ^0.8.6;\n\nimport \"@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol\";\n\nimport \"./RNGInterface.sol\";\n\n/**\n * @title RNG Chainlink V2 Interface\n * @notice Provides an interface for requesting random numbers from Chainlink VRF V2.\n */\ninterface RNGChainlinkV2Interface is RNGInterface {\n    /**\n     * @notice Get Chainlink VRF keyHash associated with this contract.\n     * @return bytes32 Chainlink VRF keyHash\n     */\n    function getKeyHash() external view returns (bytes32);\n\n    /**\n     * @notice Get Chainlink VRF subscription id associated with this contract.\n     * @return uint64 Chainlink VRF subscription id\n     */\n    function getSubscriptionId() external view returns (uint64);\n\n    /**\n     * @notice Get Chainlink VRF coordinator contract address associated with this contract.\n     * @return address Chainlink VRF coordinator address\n     */\n    function getVrfCoordinator()\n        external\n        view\n        returns (VRFCoordinatorV2Interface);\n\n    /**\n     * @notice Set Chainlink VRF keyHash.\n     * @dev This function is only callable by the owner.\n     * @param keyHash Chainlink VRF keyHash\n     */\n    function setKeyhash(bytes32 keyHash) external;\n\n    /**\n     * @notice Set Chainlink VRF subscription id associated with this contract.\n     * @dev This function is only callable by the owner.\n     * @param subscriptionId Chainlink VRF subscription id\n     */\n    function setSubscriptionId(uint64 subscriptionId) external;\n}\n",
+  "sourcePath": "/mnt/d/pardo/Desktop/Treballs/TFG/TFG/tfg/src/contracts/RNGChainlinkV2Interface.sol",
+  "ast": {
+    "absolutePath": "project:/src/contracts/RNGChainlinkV2Interface.sol",
+    "exportedSymbols": {
+      "RNGChainlinkV2Interface": [
+        3768
+      ],
+      "RNGInterface": [
+        3828
+      ],
+      "VRFCoordinatorV2Interface": [
+        192
+      ]
+    },
+    "id": 3769,
+    "license": "GPL-3.0",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 3731,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".6"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "37:23:19"
+      },
+      {
+        "absolutePath": "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol",
+        "file": "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol",
+        "id": 3732,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 3769,
+        "sourceUnit": 193,
+        "src": "62:80:19",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "project:/src/contracts/RNGInterface.sol",
+        "file": "./RNGInterface.sol",
+        "id": 3733,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 3769,
+        "sourceUnit": 3829,
+        "src": "144:28:19",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 3735,
+              "name": "RNGInterface",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 3828,
+              "src": "342:12:19"
+            },
+            "id": 3736,
+            "nodeType": "InheritanceSpecifier",
+            "src": "342:12:19"
+          }
+        ],
+        "canonicalName": "RNGChainlinkV2Interface",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": {
+          "id": 3734,
+          "nodeType": "StructuredDocumentation",
+          "src": "174:130:19",
+          "text": " @title RNG Chainlink V2 Interface\n @notice Provides an interface for requesting random numbers from Chainlink VRF V2."
+        },
+        "fullyImplemented": false,
+        "id": 3768,
+        "linearizedBaseContracts": [
+          3768,
+          3828
+        ],
+        "name": "RNGChainlinkV2Interface",
+        "nameLocation": "315:23:19",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "documentation": {
+              "id": 3737,
+              "nodeType": "StructuredDocumentation",
+              "src": "361:128:19",
+              "text": " @notice Get Chainlink VRF keyHash associated with this contract.\n @return bytes32 Chainlink VRF keyHash"
+            },
+            "functionSelector": "331bf125",
+            "id": 3742,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getKeyHash",
+            "nameLocation": "503:10:19",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3738,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "513:2:19"
+            },
+            "returnParameters": {
+              "id": 3741,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3740,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3742,
+                  "src": "539:7:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 3739,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "539:7:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "538:9:19"
+            },
+            "scope": 3768,
+            "src": "494:54:19",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "documentation": {
+              "id": 3743,
+              "nodeType": "StructuredDocumentation",
+              "src": "554:143:19",
+              "text": " @notice Get Chainlink VRF subscription id associated with this contract.\n @return uint64 Chainlink VRF subscription id"
+            },
+            "functionSelector": "de3d9fb7",
+            "id": 3748,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getSubscriptionId",
+            "nameLocation": "711:17:19",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3744,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "728:2:19"
+            },
+            "returnParameters": {
+              "id": 3747,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3746,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3748,
+                  "src": "754:6:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint64",
+                    "typeString": "uint64"
+                  },
+                  "typeName": {
+                    "id": 3745,
+                    "name": "uint64",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "754:6:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint64",
+                      "typeString": "uint64"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "753:8:19"
+            },
+            "scope": 3768,
+            "src": "702:60:19",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "documentation": {
+              "id": 3749,
+              "nodeType": "StructuredDocumentation",
+              "src": "768:161:19",
+              "text": " @notice Get Chainlink VRF coordinator contract address associated with this contract.\n @return address Chainlink VRF coordinator address"
+            },
+            "functionSelector": "0cb4a29d",
+            "id": 3755,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getVrfCoordinator",
+            "nameLocation": "943:17:19",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3750,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "960:2:19"
+            },
+            "returnParameters": {
+              "id": 3754,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3753,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3755,
+                  "src": "1010:25:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_VRFCoordinatorV2Interface_$192",
+                    "typeString": "contract VRFCoordinatorV2Interface"
+                  },
+                  "typeName": {
+                    "id": 3752,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 3751,
+                      "name": "VRFCoordinatorV2Interface",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 192,
+                      "src": "1010:25:19"
+                    },
+                    "referencedDeclaration": 192,
+                    "src": "1010:25:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_VRFCoordinatorV2Interface_$192",
+                      "typeString": "contract VRFCoordinatorV2Interface"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1009:27:19"
+            },
+            "scope": 3768,
+            "src": "934:103:19",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "documentation": {
+              "id": 3756,
+              "nodeType": "StructuredDocumentation",
+              "src": "1043:154:19",
+              "text": " @notice Set Chainlink VRF keyHash.\n @dev This function is only callable by the owner.\n @param keyHash Chainlink VRF keyHash"
+            },
+            "functionSelector": "6309b773",
+            "id": 3761,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setKeyhash",
+            "nameLocation": "1211:10:19",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3759,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3758,
+                  "mutability": "mutable",
+                  "name": "keyHash",
+                  "nameLocation": "1230:7:19",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3761,
+                  "src": "1222:15:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 3757,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1222:7:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1221:17:19"
+            },
+            "returnParameters": {
+              "id": 3760,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1247:0:19"
+            },
+            "scope": 3768,
+            "src": "1202:46:19",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "documentation": {
+              "id": 3762,
+              "nodeType": "StructuredDocumentation",
+              "src": "1254:207:19",
+              "text": " @notice Set Chainlink VRF subscription id associated with this contract.\n @dev This function is only callable by the owner.\n @param subscriptionId Chainlink VRF subscription id"
+            },
+            "functionSelector": "ea7b4f77",
+            "id": 3767,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setSubscriptionId",
+            "nameLocation": "1475:17:19",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3765,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3764,
+                  "mutability": "mutable",
+                  "name": "subscriptionId",
+                  "nameLocation": "1500:14:19",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3767,
+                  "src": "1493:21:19",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint64",
+                    "typeString": "uint64"
+                  },
+                  "typeName": {
+                    "id": 3763,
+                    "name": "uint64",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1493:6:19",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint64",
+                      "typeString": "uint64"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1492:23:19"
+            },
+            "returnParameters": {
+              "id": 3766,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1524:0:19"
+            },
+            "scope": 3768,
+            "src": "1466:59:19",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 3769,
+        "src": "305:1222:19",
+        "usedErrors": []
+      }
+    ],
+    "src": "37:1491:19"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.15+commit.e14f2714.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.7",
+  "updatedAt": "2022-11-07T19:32:19.699Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "getKeyHash()": {
+        "returns": {
+          "_0": "bytes32 Chainlink VRF keyHash"
+        }
+      },
+      "getLastRequestId()": {
+        "returns": {
+          "requestId": "The last request id used in the last request"
+        }
+      },
+      "getRequestFee()": {
+        "returns": {
+          "feeToken": "The address of the token that is used to pay fees",
+          "requestFee": "The fee required to be paid to make a request"
+        }
+      },
+      "getSubscriptionId()": {
+        "returns": {
+          "_0": "uint64 Chainlink VRF subscription id"
+        }
+      },
+      "getVrfCoordinator()": {
+        "returns": {
+          "_0": "address Chainlink VRF coordinator address"
+        }
+      },
+      "isRequestComplete(uint32)": {
+        "details": "For time-delayed requests, this function is used to check/confirm completion",
+        "params": {
+          "requestId": "The ID of the request used to get the results of the RNG service"
+        },
+        "returns": {
+          "isCompleted": "True if the request has completed and a random number is available, false otherwise"
+        }
+      },
+      "requestRandomNumber()": {
+        "details": "Some services will complete the request immediately, others may have a time-delaySome services require payment in the form of a token, such as $LINK for Chainlink VRF",
+        "returns": {
+          "lockBlock": "The block number at which the RNG service will start generating time-delayed randomness. The calling contract should \"lock\" all activity until the result is available via the `requestId`",
+          "requestId": "The ID of the request used to get the results of the RNG service"
+        }
+      },
+      "setKeyhash(bytes32)": {
+        "details": "This function is only callable by the owner.",
+        "params": {
+          "keyHash": "Chainlink VRF keyHash"
+        }
+      },
+      "setSubscriptionId(uint64)": {
+        "details": "This function is only callable by the owner.",
+        "params": {
+          "subscriptionId": "Chainlink VRF subscription id"
+        }
+      }
+    },
+    "title": "RNG Chainlink V2 Interface",
+    "version": 1
+  },
+  "userdoc": {
+    "events": {
+      "RandomNumberCompleted(uint32,uint256[])": {
+        "notice": "Emitted when an existing request for a random number has been completed"
+      },
+      "RandomNumberRequested(uint32,address)": {
+        "notice": "Emitted when a new request for a random number has been submitted"
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "getKeyHash()": {
+        "notice": "Get Chainlink VRF keyHash associated with this contract."
+      },
+      "getLastRequestId()": {
+        "notice": "Gets the last request id used by the RNG service"
+      },
+      "getRequestFee()": {
+        "notice": "Gets the Fee for making a Request against an RNG service"
+      },
+      "getSubscriptionId()": {
+        "notice": "Get Chainlink VRF subscription id associated with this contract."
+      },
+      "getVrfCoordinator()": {
+        "notice": "Get Chainlink VRF coordinator contract address associated with this contract."
+      },
+      "isRequestComplete(uint32)": {
+        "notice": "Checks if the request for randomness from the 3rd-party service has completed"
+      },
+      "requestRandomNumber()": {
+        "notice": "Sends a request for a random number to the 3rd-party service"
+      },
+      "setKeyhash(bytes32)": {
+        "notice": "Set Chainlink VRF keyHash."
+      },
+      "setSubscriptionId(uint64)": {
+        "notice": "Set Chainlink VRF subscription id associated with this contract."
+      }
+    },
+    "notice": "Provides an interface for requesting random numbers from Chainlink VRF V2.",
+    "version": 1
+  }
+}
