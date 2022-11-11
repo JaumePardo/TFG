@@ -24,7 +24,6 @@ sketch
 coverage
 
 # production
-build
 build_webpack
 
 # misc
