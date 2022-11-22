@@ -42,6 +42,9 @@ blockchain/history
 yarn.lock
 package-lock.json
 
+# hardhat
+cache
+
 # End of https://www.toptal.com/developers/gitignore/api/react,soliditytruffle
 
 

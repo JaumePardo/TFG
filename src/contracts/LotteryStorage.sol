@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
+import "./Lottery.sol";
+
 contract LotteryStorage {
     address owner;
 
-    // Structures where loteries are saved
     mapping(address => bool) lotteryStorage;
-    address[] lotteries;
+    address payable[] lotteries;
+    address payable[] unfinishedLotteries;
 
     constructor() {
         owner = msg.sender;
@@ -17,32 +19,44 @@ contract LotteryStorage {
         _;
     }
 
-    // *** Getter Methods ***
-    /**
-    @notice gets a lottery by its address
-    @param _key address of the lottery
-    @return the lottery
-    */
-    function lotteryExists(address _key) external view returns (bool) {
-        return lotteryStorage[_key];
+    function lotteryExists(address _lotteryId) external view returns (bool) {
+        return lotteryStorage[_lotteryId];
     }
 
-    /**
-    @notice gets all the lotteries saved
-    @return the lotteries
-    */
-    function getLotteries() external view returns (address[] memory) {
+    function getLotteries() external view returns (address payable[] memory) {
         return lotteries;
     }
 
-    // *** Setter Methods ***
-    /**
-    @notice adds a new lottery to the storage mapping and array
-    @dev can only be executed by the latest version contract
-    @param _key the address of the lottery
-    */
-    function setLottery(address _key) external onlyOwner {
-        lotteryStorage[_key] = true;
-        lotteries.push(_key);
+    function getUnfinishedLotteries() external view returns (address payable[] memory) {
+        return unfinishedLotteries;
     }
+
+    function setLottery(address payable _lotteryId) external onlyOwner {
+        lotteryStorage[_lotteryId] = true;
+        lotteries.push(_lotteryId);
+        insertToUnFinishedLotteries(_lotteryId);
+    }
+
+    function removeFirstLotteryFinished() public onlyOwner {
+        unfinishedLotteries[0] = unfinishedLotteries[unfinishedLotteries.length - 1];
+        unfinishedLotteries.pop();
+    }
+
+    function insertToUnFinishedLotteries(address payable _lotteryId) internal {
+        (,uint256 date,,,,,,,,) = Lottery(_lotteryId).infoLottery();
+        uint256 i = 0;
+        uint256 date2;
+        for (; i < unfinishedLotteries.length; i++) {
+            (,date2,,,,,,,,) = Lottery(unfinishedLotteries[i]).infoLottery();
+            if (date < date2) {
+                break;                
+            }
+        }
+        unfinishedLotteries.push(payable(0x0000000000000000000000000000000000000000));
+        for(uint256 j = unfinishedLotteries.length-1; j > i; j--) {
+            unfinishedLotteries[j] = unfinishedLotteries[j - 1];
+        }
+        unfinishedLotteries[i] = _lotteryId;
+    }
+
 }

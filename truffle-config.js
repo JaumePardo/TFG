@@ -42,7 +42,7 @@ module.exports = {
     // options below to some value.
     //
      development: {
-      host: "127.0.0.1",     // Localhost (default: none)
+      host: "192.168.1.88",     // Localhost (default: none)
       port: 7545,            // Standard Ethereum port (default: none)
       network_id: "*",       // Any network (default: none)
      },
@@ -78,10 +78,21 @@ module.exports = {
   plugins: ["truffle-contract-size"],
   // Set default mocha options here, use special reporters, etc.
   mocha: {
+    reporter: 'eth-gas-reporter',
+    reporterOptions : {
+      enabled: true,
+      currency: 'USD',
+      gasPrice: 21,
+      coinmarketcap: '51102c0d-2e8d-4969-b9c4-12a412db6d68',
+      token: 'ETH',
+      gasPriceApi: 'https://api.etherscan.io/api?module=proxy&action=eth_gasPrice',
+      showTimeSpent: true,
+    }
     // timeout: 100000
   },
   contracts_directory: './src/contracts/',
   contracts_build_directory: './src/abis/',
+  test_directory: './src/test/',
   // Configure your compilers
   compilers: {
     solc: {

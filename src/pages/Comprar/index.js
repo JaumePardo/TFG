@@ -56,7 +56,7 @@ export default function Comprar({ params }) {
         if (isWeb3Enabled) {
             getLotteryInfo().then((_lotteryInfo) => {
                 getLatestPrice().then((price) => {
-                    setEntranceFee((parseInt(_lotteryInfo[4]._hex,16) * 10 **26 / parseInt(price._hex,16)));
+                    setEntranceFee((parseInt(_lotteryInfo[4]._hex,16) * 10 **26 / parseInt(price._hex,16))+100);
                 });
             });
         }

@@ -7,9 +7,7 @@ contract PriceConsumerV3 {
     AggregatorV3Interface public priceFeed;
 
     constructor() {
-        priceFeed = AggregatorV3Interface(
-            0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e
-        );
+        priceFeed = AggregatorV3Interface(0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e);
     }
 
     function getLatestPrice() public view returns (uint256) {
@@ -22,6 +20,3 @@ contract PriceConsumerV3 {
     }
 }
 
-/**************
-- Diferentes boletos ganadores. Dividir el premio en 3 boletos ganadores con premios distintos
- */
