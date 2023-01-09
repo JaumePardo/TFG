@@ -1,4 +1,4 @@
-/*const LotteryService = artifacts.require("LotteryService");
+const LotteryService = artifacts.require("LotteryService");
 const Lottery = artifacts.require("Lottery");
 const expect = require("chai").expect;
 
@@ -30,7 +30,7 @@ contract ("LotteryService", (accounts) => {
 
 
     
-});*/
+});
 const expect = require("chai").expect;
 const hre = require("hardhat");
 

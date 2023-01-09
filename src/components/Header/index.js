@@ -5,6 +5,7 @@ import { useMoralis, useWeb3Contract  } from "react-moralis";
 import smart_contract from '../../abis/LotteryService.json';
 import { CONTRACT_ADDRESS } from '../../services/getEnvs.js';
 import IncorrectNetwork from '../IncorrectNetwork/index.js';
+import Gear from '../../assets/svg/gear.svg';
 
 
 export default function Header() {
@@ -20,7 +21,7 @@ export default function Header() {
 
     useEffect(() => {
         if (isWeb3Enabled) {
-            console.log(parseInt(chainIdHex,16))
+            console.log("chainId",parseInt(chainIdHex,16))
             owner().then((owner) => {
               setLotteryOwner(owner.toLowerCase());
             });
@@ -34,14 +35,14 @@ export default function Header() {
             </div>
             <header className="headerApp">
                 <ConnectButton />
-                <a href='/' className='logo'>LOTERIA NACIONAL</a>
+                <Link to='/' className='logo'>LOTERIA NACIONAL</Link>
                 <div className='menu'>
-                    <Link to="/">Comprar</Link>
+                    <Link to="/comprar">Comprar</Link>
                     <Link to="/intercambiar">Compartir</Link>
                     <Link to="/reclamarPremios">Reclamar Premios</Link>
-                    {lotteryOwner === account  && <Link to="/generarGanadores"> Generar Ganadores</Link>}
                     {lotteryOwner === account  && <Link to="/deploy">Desplegar</Link>}
                     {lotteryOwner === account  && <Link to="/obtenerBeneficios">Obtener Beneficios</Link>}
+                    {lotteryOwner === account  && <Link to="/administrar"><img id="gearsvg" src={Gear} /></Link>}
                 </div>
              </header>
         </>

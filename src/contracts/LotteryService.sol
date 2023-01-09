@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.6;
 
 import "./LotteryStorage.sol";
 import "./Lottery.sol";
@@ -67,11 +67,8 @@ contract LotteryService is PriceConsumerV3, VRFConsumerBaseV2 {
         uint256 _totalSeries
     ) internal pure returns (bool) {
         return
-            (_numTicket >= 0) &&
             (_numTicket < _totalNumbers) &&
-            (_numSerie >= 0) &&
             (_numSerie < _totalSeries) &&
-            (_numFraccion >= 0) &&
             (_numFraccion < 10);
     }
 
@@ -96,11 +93,12 @@ contract LotteryService is PriceConsumerV3, VRFConsumerBaseV2 {
         Lottery ticket = Lottery(_lotteryId);
         (,uint256 date,,,,,uint256 minimumParticipants,uint256 totalPrize,,) = ticket.infoLottery();
         require(block.timestamp > date, "La loteria aun no ha terminado");
-        require(!ticket.isLotteryFinished(), "La loteria ya ha terminado");
+        require(ticket.isLotteryActive(), "La loteria ya ha terminado");
         if(ticket.getTotalPurchasedTickets()>minimumParticipants){
             requestRandomNumber(_lotteryId);
             ticket.setLotteryFinished();
         }else{
+            ticket.setBenefit();
             ticket.payPrize(totalPrize, _owner);
             ticket.setLotteryFailed();
         }
@@ -121,15 +119,16 @@ contract LotteryService is PriceConsumerV3, VRFConsumerBaseV2 {
         }
     }
 
-    function refundTicket(address payable _lotteryId, uint256 _tokenId) external lotteryExists(_lotteryId){
+    function refundTicket(address payable _lotteryId, uint256 _tokenId) external lotteryExists(_lotteryId) returns(uint256){
         Lottery ticket = Lottery(_lotteryId);
         require(ticket.isLotteryFailed(), "La loteria no ha fallado");
         uint256 amountShares = getSharesOfBuyer(_lotteryId,msg.sender,_tokenId);
         require(amountShares != 0, "No tiene participaciones de este ticket");
         uint256 totalSupplyShares = getTotalSupplyShares(_lotteryId, _tokenId);
         Shares(ticket.getTicketToShare(_tokenId).shares).burn(msg.sender, amountShares);
-        uint256 refund = ((address(_lotteryId).balance * amountShares) / (ticket.getTotalPurchasedTickets() * totalSupplyShares));
+        uint256 refund = (amountShares*ticket.getBenefit())/(totalSupplyShares*ticket.getTotalPurchasedTickets());
         ticket.payPrize(refund, msg.sender);
+        return refund;
     }
 
     function getPrize(address payable _lotteryId, uint256 _tokenId) external lotteryExists(_lotteryId) {
@@ -153,7 +152,7 @@ contract LotteryService is PriceConsumerV3, VRFConsumerBaseV2 {
     ) external payable lotteryExists(_lotteryId) {
         Lottery ticket = Lottery(_lotteryId);
         require(_totalShares>0, "Debes adquirir mas de una participacion");
-        require(ticket.isLotteryFinished(), "La loteria ya ha terminado");
+        require(ticket.isLotteryActive(), "La loteria ya ha terminado");
         (,,,uint256 totalNumbers,uint256 totalSeries,uint256 ticketCost,,,,) = ticket.infoLottery();
         require(checkNumBoleto(_numTicket,_numSerie,_numFraccion,totalNumbers,totalSeries),"El numero,serie o fraccion no son correctos");
         uint256 ticketCostEth = getCostEth(ticketCost);
@@ -175,7 +174,7 @@ contract LotteryService is PriceConsumerV3, VRFConsumerBaseV2 {
         uint256 _tokenId
     ) external lotteryExists(_lotteryId) {
         Lottery ticket = Lottery(_lotteryId);
-        require(!ticket.isLotteryFinished(), "La loteria ya ha terminado");
+        require(ticket.isLotteryActive(), "La loteria ya ha terminado");
         Shares share = Shares(ticket.getTicketToShare(_tokenId).shares);
         require(share.balanceOf(msg.sender) >= _amount,"No tienes suficientes participaciones de este ticket");
         share.approve(msg.sender, _to, _amount);
@@ -187,7 +186,7 @@ contract LotteryService is PriceConsumerV3, VRFConsumerBaseV2 {
         uint256 _tokenId
     ) external payable lotteryExists(_lotteryId) {
         Lottery ticket = Lottery(_lotteryId);
-        require(!ticket.isLotteryFinished(), "La loteria ya ha terminado");
+        require(ticket.isLotteryActive(), "La loteria ya ha terminado");
         Shares share = Shares(ticket.getTicketToShare(_tokenId).shares);
         (,,,,,uint256 ticketCost,,,,) = Lottery(_lotteryId).infoLottery();
         uint256 amount = share.allowance(_from, msg.sender);

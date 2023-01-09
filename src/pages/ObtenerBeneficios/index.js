@@ -5,22 +5,26 @@ import smart_contract from '../../abis/LotteryService.json';
 import Web3 from 'web3';
 import MyAlert from '../../components/MyAlert';
 
-export default function ObtenerBeneficios() {
+export default function ObtenerBeneficios({ params }) {
 
+    const { lotteryAddress } = params;
     const {Moralis,isWeb3Enabled} = useMoralis();
     const [balance, setBalance] = useState(0);
     const [alert, setAlert] = useState(null);
 
-    const { runContractFunction: withdraw } = useWeb3Contract({
+    const { runContractFunction: getBenefits } = useWeb3Contract({
         abi: smart_contract.abi,
         contractAddress: CONTRACT_ADDRESS,
-        functionName: "withdraw"
+        functionName: "getBenefits",
+        params: {
+            _lotteryId: lotteryAddress
+        },
     });
 
     const handleObtenerBeneficios = () => {
         if (isWeb3Enabled) {
-            console.log("withdraw");
-            withdraw({onError: (error) => {
+            console.log("getBenefits");
+            getBenefits({onError: (error) => {
                 console.log(error.message);
                 setAlert({severity: "error", message: error?.error?.message})
                 }
@@ -31,7 +35,7 @@ export default function ObtenerBeneficios() {
     useEffect(() => {
         if (isWeb3Enabled) {
             const provider = new Web3(Moralis.provider);
-            provider.eth.getBalance(CONTRACT_ADDRESS).then((_balance) => {
+            provider.eth.getBalance(lotteryAddress).then((_balance) => {
                 setBalance(provider.utils.fromWei(_balance, 'ether'));
             });
         }

@@ -9,8 +9,10 @@
     "@web3uikit/core": "^0.1.6",
     "@web3uikit/icons": "^0.1.5",
     "@web3uikit/web3": "^0.1.6",
+    "i18next": "^22.4.9",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-i18next": "^12.1.4",
     "react-moralis": "^1.4.1",
     "react-scripts": "^4.0.3",
     "truffle": "^5.5.28",
@@ -23,6 +25,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "slither": "slither ./src/contracts --solc-remaps '@=node_modules/@'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -16,6 +16,9 @@ export default function Deploy() {
     const [ticketCost, setTicketCost] = useState(0);
     const [prize, setPrize] = useState(0);
     const [nameLottery, setNameLottery] = useState("");
+    const [minimumParticipants, setMinimumParticipants] = useState(0);
+    const [numWinners, setNumWinners] = useState(0);
+    const [dateLottery, setDateLottery] = useState(0);
     const [lotteryAddress, setLotteryAddress] = useState(null);
     const [web3js, setWeb3js] = useState(null);
     const [alert, setAlert] = useState(null);
@@ -26,7 +29,7 @@ export default function Deploy() {
         try{
             const deployedLottery = await undeployedLottery.deploy({
                 data: lottery_contract.bytecode,
-                arguments : [ticketCost,totalNumbers,totalSeries,CONTRACT_ADDRESS,prize,nameLottery]
+                arguments : [ticketCost,totalNumbers,totalSeries,CONTRACT_ADDRESS,minimumParticipants,prize,numWinners,dateLottery,nameLottery]
             }).send({
                 from: account,
                 gas: 9635081,
@@ -105,6 +108,18 @@ export default function Deploy() {
                         <div className="comprarFormInput">
                             <label htmlFor="ticketCost">Precio por boleto (USD)</label>
                             <input type="number" className="comprarFormControl" id="ticketCost" onChange={(e) => {setTicketCost(e.target.value)}}  placeholder="20"/>
+                        </div>
+                        <div className="comprarFormInput">
+                            <label htmlFor="minimumParticipants">Cantidad mínima de jugadores</label>
+                            <input type="number" className="comprarFormControl" id="minimumParticipants" onChange={(e) => {setMinimumParticipants(e.target.value)}}  placeholder="150"/>
+                        </div>
+                        <div className="comprarFormInput">
+                            <label htmlFor="numWinners">Número de ganadores</label>
+                            <input type="number" className="comprarFormControl" id="numWinners" onChange={(e) => {setNumWinners(e.target.value)}}  placeholder="1"/>
+                        </div>
+                        <div className="comprarFormInput">
+                            <label htmlFor="dateLottery">Finalización de la lotería</label>
+                            <input type="datetime-local" className="comprarFormControl" id="dateLottery" onChange={(e) => {setDateLottery(new Date(e.target.value).getTime()/1000)}}  />
                         </div>
                         <div className="comprarFormInput">
                             <label htmlFor="prize">Premio total (Wei)</label>

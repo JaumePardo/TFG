@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.6;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./Shares.sol";
 
@@ -14,6 +14,7 @@ contract Lottery is ERC721 {
     uint256 private minimumParticipants;
     uint256 private prizeNotClaimed;
     uint256 private date;
+    uint256 private benefit;
 
 
     uint256[] private purchasedTickets;
@@ -83,9 +84,9 @@ contract Lottery is ERC721 {
     }
 
     function payPrize(uint256 _weiToPay, address _to) public onlyOwner {
+        prizeNotClaimed = prizeNotClaimed - _weiToPay;
         (bool success,)=payable(_to).call{value:_weiToPay}("");
         require(success, "Transfer failed");
-        prizeNotClaimed = prizeNotClaimed - _weiToPay;
     }
 
     function mintBoleto(
@@ -129,14 +130,6 @@ contract Lottery is ERC721 {
         );
     }
 
-    // function setRequestId(uint32 _requestId) public onlyOwner {
-    //     requestId = _requestId;
-    // }
-
-    // function getRequestId() public view returns (uint32) {
-    //     return requestId;
-    // }
-
     fallback() external payable {}
     receive() external payable {}
 
@@ -157,8 +150,20 @@ contract Lottery is ERC721 {
         return state == States.LotteryFailed;
     }
 
+    function isLotteryActive() public view returns (bool) {
+        return state == States.LotteryActive;
+    }
+
     function getTotalPurchasedTickets() public view returns (uint256) {
         return purchasedTickets.length;
+    }
+
+    function setBenefit() public onlyOwner {
+        benefit = address(this).balance - totalPrize;
+    }
+
+    function getBenefit() public view returns(uint256){
+        return benefit;
     }
 
     function setWinnerTickets( uint256[] memory randomWords) external onlyOwner returns(uint256[] memory){

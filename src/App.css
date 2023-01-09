@@ -12,6 +12,11 @@ header a{
   text-decoration: none;
 }
 
+#gearsvg{
+  width: 30px;
+  height: 30px;
+}
+
 .logo{
   font-weight: 700;
   font-size: calc(10px + 2vmin);
@@ -67,13 +72,20 @@ header a{
   font-size: 1.5rem;
 }
 
-.menu a{
+.menu a,
+.menu img{
   margin: 0 1.5rem;
 }
 
 .menu a:hover{
   cursor: pointer;
   font-weight: 700;
+}
+
+#gearsvg:hover{
+  cursor: pointer;
+  width: 40px;
+  height: 40px;;  
 }
 
 
@@ -85,7 +97,8 @@ header a{
 .generarGanadoresPage,
 .desplegarPage,
 .obtenerBeneficiosPage,
-.reclamarPremiosPage{
+.reclamarPremiosPage,
+.administrarPage{
   position: relative;
   display: flex;
   flex-flow: column wrap;
@@ -94,13 +107,15 @@ header a{
   width: 100%;
 }
 
-.comprarFormGroup{
+.comprarFormGroup,
+.administrarFormGroup{
   display: flex;
   flex-flow: column wrap;
 }
 
 .comprarFormInput,
-.intercambiarFormGroup{
+.intercambiarFormGroup,
+.administrarFormGroup{
   display: flex;
   flex-flow: column wrap;
   width: 300px;
@@ -119,16 +134,19 @@ header a{
 .generarGanadoresHeader,
 .desplegarHeader,
 .obtenerBeneficiosHeader,
-.reclamarPremiosHeader{
+.reclamarPremiosHeader,
+.administrarHeader{
   margin-top: 90px;
 }
 
-.intercambiarFormButtons{
+.intercambiarFormButtons,
+.administrarFormButtons{
   margin-top: 20px;
   display: flex;
   justify-content: space-around;
 }
-.intercambiarFormButtons button{
+.intercambiarFormButtons button,
+.administrarFormButtons button{
   width: 100px;
   height: 40px;
   border-radius: 5px;
@@ -138,15 +156,18 @@ header a{
   cursor: pointer;
 
 }
-.intercambiarFormButtons button:nth-child(1){
+.intercambiarFormButtons button:nth-child(1),
+.administrarFormButtons button:nth-child(1){
   background-color: green;
 }
-.intercambiarFormButtons button:nth-child(2){
+.intercambiarFormButtons button:nth-child(2),
+.administrarFormButtons button:nth-child(2){
   background-color: red;
 }
 
 .generarGanadoresButtons,
-.obtenerBeneficiosButton{
+.obtenerBeneficiosButton,
+.finalizarLoteriasButton{
   margin-top: 20px;
   display: flex;
   flex-flow: row wrap;
@@ -155,7 +176,8 @@ header a{
 }
 
 .generarGanadoresButtons button,
-.obtenerBeneficiosButton button{
+.obtenerBeneficiosButton button,
+.finalizarLoteriasButton button{
   width: 150px;
   height: 50px;
   border-radius: 5px;
@@ -164,6 +186,10 @@ header a{
   font-size: 1rem;
   cursor: pointer;
   background-color: #48d1cc;
+}
+
+.finalizarLoteriasButton{
+  margin-top: 60px;
 }
 
 .obtenerBeneficiosHeader span{
